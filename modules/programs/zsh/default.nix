@@ -40,6 +40,9 @@ in {
       k8pod = "kubectl get pod";
       dcup = "docker-compose up -d";
       dcdown = "docker-compose down";
+      ll = "eza --header --git --classify --long --binary --group --time-style=long-iso --links --all --all --group-directories-first --sort=name";
+      tree = "eza --tree";
+      dsw = "darwin-rebuild switch --flake";
     };
     # plugins = [
     #   {

@@ -30,10 +30,18 @@ in
     docker
     vscode
     bat
+    eza
   ];
 
   # import programs 
   imports = [
     zsh-module
   ];
+
+  programs.eza = {
+    enable = true;
+    enableZshIntegration = true;
+    colors = "always";
+    icons = "always";
+  };
 }
