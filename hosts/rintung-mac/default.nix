@@ -12,18 +12,6 @@
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   nixpkgs.config.allowUnfree = true;
-  environment.systemPackages = with pkgs;
-    [ 
-      zsh
-      oh-my-zsh
-      vim
-      curl
-      jq
-      wget
-      kubectl
-      docker
-      vscode
-  ];
 
   # Necessary for using flakes on this system.
   # user touch id for sudo
@@ -51,13 +39,31 @@
   # user config 
   users.users.${userConfig.name} = {
     name = "${userConfig.name}";
-    home = "/Users/${userConfig.name}";
+    home = "${userConfig.homeDir}";
   };
       
   # system settings 
   system = {
+    activationScripts.postUserActivation.text = ''
+      # Following line should allow us to avoid a logout/login cycle
+      /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+    '';
     defaults = {
-      
+      NSGlobalDomain = {
+        "com.apple.mouse.tapBehavior" = 1;
+        "com.apple.trackpad.enableSecondaryClick" = true;
+        "com.apple.swipescrolldirection" = true;
+        AppleShowScrollBars = "WhenScrolling";
+        AppleInterfaceStyle = "Dark";
+        NSAutomaticCapitalizationEnabled = false;
+        NSAutomaticDashSubstitutionEnabled = false;
+        NSAutomaticQuoteSubstitutionEnabled = false;
+        NSAutomaticSpellingCorrectionEnabled = false;
+        NSAutomaticWindowAnimationsEnabled = false;
+        NSDocumentSaveNewDocumentsToCloud = false;
+        NSNavPanelExpandedStateForSaveMode = true;
+        PMPrintingExpandedStateForPrint = true;
+      };
       # MacOS Dock
       dock = {
         autohide = true;
@@ -65,46 +71,23 @@
         magnification = true;
         orientation = "bottom";
         tilesize = 32;
+        show-recents = false;
+        show-process-indicators = true;
+        minimize-to-application = true;
+        showhidden = true;
       };
 
       # Screenshot
       screencapture = {
-        location = "/Users/${userConfig.name}/Downloads/temp";
+        location = "/Users/${userConfig.name}/Downloads/screenshots-temp";
         type = "png";
         disable-shadow = true;
       };
 
-
-      trackpad = {
-        TrackpadRightClick = true;
-        TrackpadThreeFingerDrag = true;
-        Clicking = true;
+      menuExtraClock = {
+        ShowDate = 1;
       };
     };
-  };
-  
-  programs.zsh = {
-    enable = true;
-    enableCompletion = true;
-    enableBashCompletion = true;
-    enableFastSyntaxHighlighting = true;
-    # enableSyntaxHighlighting = true;
-    # plugins = [
-    #   {
-    #     name = "powerlevel10k";
-    #     src = pkgs.zsh-powerlevel10k;
-    #     file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-    #   }
-    # ];
-    # initExtra = ''
-    #   source ~/.p10k.zsh
-    # '';
-    # ohMyZsh = {
-    #   enable = true;
-    #   plugins = [ "git" "you-should-use" "zsh-syntax-highlighting"
-    #   "zsh-autosuggestions" "zsh-bat" "docker" "kubectl" ];
-    #   theme = "powerlevel10k";
-    # };
   };
   
   fonts = {
