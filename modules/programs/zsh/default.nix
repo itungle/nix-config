@@ -38,26 +38,16 @@ in {
       c = "clear";
       k8 = "kubectl";
       k8pod = "kubectl get pod";
-      dcup = "docker-compose up -d";
-      dcdown = "docker-compose down";
       ll = "eza --header --git --classify --long --binary --group --time-style=long-iso --links --all --all --group-directories-first --sort=name";
       tree = "eza --tree";
       dsw = "darwin-rebuild switch --flake";
       ausdir = "cd ~/Work/AUS/";
       workdir = "cd ~/Work/";
       tlppdir = "cd ~/Personal/Projects";
+      nixdir = "cd ~/.config/nix";
+      applyspotless = "mvn spotless:apply";
+      checkspotless = "mvn spotless:check";
     };
-    # plugins = [
-    #   {
-    #     name = "powerlevel10k";
-    #     src = pkgs.zsh-powerlevel10k;
-    #     file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-    #   }
-    # ];
-    # set the path to the custom folder
-    # home.file.".zshrc".text = ''
-    #   ${prependZshCustom}
-    # '';
     initContent = ''
       source ~/.p10k.zsh;
       source "$HOME/.sdkman/bin/sdkman-init.sh";
@@ -67,7 +57,7 @@ in {
     oh-my-zsh = {
       enable = true;
       custom = "/Users/tungle/.config/ohmyzsh/custom";
-      plugins = [ "git" "docker" "kubectl" "jenv" ];
+      plugins = [ "git" "docker" "docker-compose" "kubectl" "jenv" "aws" "zsh-autosuggestions" "you-should-use" "zsh-history-substring-search" "mvn"];
       theme = "powerlevel10k/powerlevel10k";
     };
   };
