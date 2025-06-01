@@ -31,6 +31,7 @@ in
     vscode
     bat
     eza
+    direnv
   ];
 
   # import programs 
@@ -43,5 +44,10 @@ in
     enableZshIntegration = true;
     colors = "always";
     icons = "always";
+  };
+
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
   };
 }

@@ -43,6 +43,9 @@ in {
       ll = "eza --header --git --classify --long --binary --group --time-style=long-iso --links --all --all --group-directories-first --sort=name";
       tree = "eza --tree";
       dsw = "darwin-rebuild switch --flake";
+      ausdir = "cd ~/Work/AUS/";
+      workdir = "cd ~/Work/";
+      tlppdir = "cd ~/Personal/Projects";
     };
     # plugins = [
     #   {
@@ -56,7 +59,10 @@ in {
     #   ${prependZshCustom}
     # '';
     initContent = ''
-      source ~/.p10k.zsh
+      source ~/.p10k.zsh;
+      source "$HOME/.sdkman/bin/sdkman-init.sh";
+      export PATH="$HOME/.jenv/bin:$PATH";
+      eval "$(jenv init -)";
     '';
     oh-my-zsh = {
       enable = true;
